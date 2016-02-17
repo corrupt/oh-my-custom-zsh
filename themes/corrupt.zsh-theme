@@ -1,4 +1,4 @@
-# This is a fork of crcandy with a modified user@host prompt
+# This is a fork of crcandy by Filipe Chagas (https://github.com/filipechagas) with a modified user@host prompt
 
 prompt_userhost() {
 	if [[ $UID -eq 0 ]] 
