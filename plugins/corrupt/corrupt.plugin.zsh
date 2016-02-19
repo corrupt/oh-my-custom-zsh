@@ -45,7 +45,12 @@ alias -g L='|less'
 
 # }}}
 
-
 function mkcd() {
 	mkdir $1 && cd $1
 }
+
+#proper ssh hosts autocompletion
+zstyle -s ':completion:*:hosts' hosts _ssh_config
+[[ -r ~/.ssh/config ]] && _ssh_config+=($(cat ~/.ssh/config | sed -ne 's/Host[=\t ]//p'))
+_ssh_config+=( ${${${${(f)"$(<$HOME/.ssh/known_hosts)"}:#[0-9]*}%%\ *}%%,*} )
+zstyle ':completion:*:hosts' hosts $_ssh_config
