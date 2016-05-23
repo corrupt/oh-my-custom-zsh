@@ -21,6 +21,7 @@ bindkey '^[[F' end-of-line #end on mac keyboard?
 bindkey '^[[3~' delete-char #del
 bindkey '^J' backward-word #crtl-j
 bindkey '^K' forward-word #crtl-k
+bindkey '' clear-screen
 
 # }}}
 
