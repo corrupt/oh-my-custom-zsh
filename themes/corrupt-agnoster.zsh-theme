@@ -136,7 +136,7 @@ prompt_cmdline() {
 	local color
   prompt_segment $color $PRIMARY_FG ' '
   prompt_segment $color $PRIMARY_BG ' '
-  prompt_segment yellow $PRIMARY_FG ''
+  prompt_segment magenta $PRIMARY_FG ''
 	prompt_end
 }
 
