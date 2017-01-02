@@ -134,6 +134,8 @@ prompt_virtualenv() {
 
 prompt_cmdline() {
 	local color
+	print -n "
+"
   prompt_segment $color $PRIMARY_FG ' '
   prompt_segment $color $PRIMARY_BG ' '
   prompt_segment magenta $PRIMARY_FG ''
@@ -150,12 +152,12 @@ prompt_agnoster_main() {
   prompt_dir
   prompt_git
   prompt_end
+	prompt_cmdline
 }
 
 prompt_agnoster_precmd() {
   vcs_info
-	PROMPT="%{%f%b%k%}$(prompt_agnoster_main)
-$(prompt_cmdline) " 
+	PROMPT="%{%f%b%k%}$(prompt_agnoster_main) " 
 }
 
 prompt_agnoster_setup() {

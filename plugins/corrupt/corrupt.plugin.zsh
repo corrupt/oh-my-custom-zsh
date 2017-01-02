@@ -1,4 +1,3 @@
-setopt automenu 
 unsetopt beep equals
 
 # key bindings {{{
@@ -38,6 +37,8 @@ alias ....='cd ../../..'
 alias cls='clear'
 alias hugs='hugs -Evim'
 alias tmux="tmux -2"
+alias dd="dd status=progress"
+#alias pass-sva="PASSWORD_STORE_DIR=~/.password-store-sva pass"
 
 # global
 alias -g grep='grep --color=auto'
@@ -46,12 +47,45 @@ alias -g L='|less'
 
 # }}}
 
+function soffice () {
+	GTK2_RC_FILES=$HOME/.gtkrc-2.0-libreoffice /usr/bin/soffice $@
+}
+function libreoffice () {
+	GTK2_RC_FILES=$HOME/.gtkrc-2.0-libreoffice /usr/bin/libreoffice $@
+}
+
+
+#-------------->8------------------->8------------------->8-----------------
+
 function mkcd() {
 	mkdir $1 && cd $1
 }
+
+#-------------->8------------------->8------------------->8-----------------
 
 #proper ssh hosts autocompletion
 zstyle -s ':completion:*:hosts' hosts _ssh_config
 [[ -r ~/.ssh/config ]] && _ssh_config+=($(cat ~/.ssh/config | sed -ne 's/Host[=\t ]//p'))
 _ssh_config+=( ${${${${(f)"$(<$HOME/.ssh/known_hosts)"}:#[0-9]*}%%\ *}%%,*} )
 zstyle ':completion:*:hosts' hosts $_ssh_config
+
+#-------------->8------------------->8------------------->8-----------------
+
+#pass completion for svapass alias
+compdef _pass svapass 
+compdef -e "PASSWORD_STORE_DIR=$HOME/.password-store-sva _pass" svapass 
+#zstyle ':completion::complete:svapass::' prefix "$HOME/.password-store-sva"
+#zstyle ':completion:*:svapass:*:*' environ PASSWORD_STORE_DIR="$HOME/.password-store-sva"
+svapass () {
+  PASSWORD_STORE_DIR=$HOME/.password-store-sva pass $@
+}
+
+
+#pass completion anywhere in _values
+#zstyle ':completion::complete:pass::' matcher-list 'm:{a-z-}={A-Z_} l:|=* r:|=*'
+#zstyle ':completion::complete:svapass::' matcher-list 'm:{a-z-}={A-Z_} l:|=* r:|=*'
+zstyle ':completion::complete:pass::' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|=*' 'l:|=* r:|=*'
+zstyle ':completion::complete:svapass::' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|=*' 'l:|=* r:|=*'
+zstyle ':completion::complete:pass::' menu select
+zstyle ':completion::complete:svapass::' menu select
+#zstyle ':completion::complete:pass::' matcher-list 'm:{a-z-}={A-Z_} l:|=* r:|=*'
