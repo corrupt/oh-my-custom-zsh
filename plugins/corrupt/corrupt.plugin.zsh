@@ -38,6 +38,7 @@ alias cls='clear'
 alias hugs='hugs -Evim'
 alias tmux="tmux -2"
 alias dd="dd status=progress"
+alias gitbackup="git --git-dir ~/.git-home-backup --work-tree=$HOME"
 #alias pass-sva="PASSWORD_STORE_DIR=~/.password-store-sva pass"
 
 # global
